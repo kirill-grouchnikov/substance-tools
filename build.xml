@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="substance-tools" default="all">
+	<property file="local.build.properties" />
+	<property file="build.properties" />
+
+	<!-- Compiler options -->
+	<patternset id="javac.excluded" />
+	<patternset id="javac.resources">
+		<include name="**/?*.properties" />
+		<include name="**/?*.xml" />
+		<include name="**/?*.gif" />
+		<include name="**/?*.png" />
+		<include name="**/?*.jpeg" />
+		<include name="**/?*.jpg" />
+		<include name="**/?*.html" />
+		<include name="**/?*.dtd" />
+		<include name="**/?*.tld" />
+		<include name="**/?*.ttf" />
+	</patternset>
+	<!-- JDK definitions -->
+
+	<path id="jdk.classpath">
+		<fileset dir="${java.home}">
+			<include name="jre/lib/charsets.jar" />
+			<include name="jre/lib/deploy.jar" />
+			<include name="jre/lib/javaws.jar" />
+			<include name="jre/lib/jce.jar" />
+			<include name="jre/lib/jsse.jar" />
+			<include name="jre/lib/plugin.jar" />
+			<include name="jre/lib/rt.jar" />
+			<include name="jre/lib/ext/dnsns.jar" />
+			<include name="jre/lib/ext/localedata.jar" />
+			<include name="jre/lib/ext/sunjce_provider.jar" />
+			<include name="jre/lib/ext/sunpkcs11.jar" />
+		</fileset>
+	</path>
+
+	<property name="project.jdk.home" value="${java.home}" />
+	<property name="project.jdk.classpath" value="jdk.classpath" />
+	<!-- Project Libraries -->
+	<!-- Global Libraries -->
+
+
+	<dirname property="module.substance-tools.basedir" file="${ant.file}" />
+
+	<property name="javac.args.substance-tools" value="${javac.args}" />
+
+	<property name="substance-tools.build.dir" value="${module.substance-tools.basedir}/build/" />
+	<property name="substance-tools.output.dir" value="${substance-tools.build.dir}/classes" />
+	<property name="substance-tools.drop.dir" value="${module.substance-tools.basedir}/drop" />
+	<property name="substance-tools.src.dir" value="${module.substance-tools.basedir}/src/" />
+	
+    <property name="flamingo.basedir" value="${module.substance-tools.basedir}/../flamingo" />
+    <property name="substance.basedir" value="${module.substance-tools.basedir}/../substance" />
+    <property name="substance.swingx.basedir" value="${module.substance-tools.basedir}/../substance-swingx" />
+    <property name="substance.extras.basedir" value="${module.substance-tools.basedir}/../substance-extras" />
+    <property name="substance.demo.basedir" value="${module.substance-tools.basedir}/../substance-demo" />
+	
+    <property name="substance.version" value="8.0.00-dev" />
+    <property name="substance.versionKey" value="8.0.0dev Wyoming" />
+    <property name="flamingo.version" value="6.0.00-dev" />
+    <property name="flamingo.versionKey" value="6.0.00dev Liadan" />
+    <property name="trident.version" value="1.4" />
+
+	<path id="substance-tools.module.bootclasspath">
+		<!-- Paths to be included in compilation bootclasspath -->
+	</path>
+
+	<property name="module.jdk.home.substance-tools" value="${project.jdk.home}" />
+	<property name="module.jdk.classpath.substance-tools" value="${project.jdk.classpath}" />
+
+	<path id="substance-tools.module.classpath">
+		<path refid="${module.jdk.classpath.substance-tools}" />
+        <pathelement location="${substance.swingx.basedir}/lib/swingx-all-1.6.4.jar" />
+		<pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
+		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
+		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
+		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-tst-${flamingo.version}.jar" />
+        <pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
+        <pathelement location="${flamingo.basedir}/lib/forms-1.2.0.jar" />
+        <pathelement location="${substance.demo.basedir}/lib/test/fest-assert-1.2.jar" />
+        <pathelement location="${substance.demo.basedir}/lib/test/fest-reflect-1.2.jar" />
+        <pathelement location="${substance.demo.basedir}/lib/test/fest-swing-1.2.jar" />
+        <pathelement location="${substance.demo.basedir}/lib/test/fest-util-1.1.2.jar" />
+        <pathelement location="${substance.demo.basedir}/drop/${substance.version}/substance-demo-${substance.version}.jar" />
+        <pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
+        <pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
+	</path>
+
+	<patternset id="excluded.from.module.substance-tools" />
+
+	<patternset id="excluded.from.compilation.substance-tools">
+		<patternset refid="excluded.from.module.substance-tools" />
+		<patternset refid="javac.excluded" />
+	</patternset>
+
+	<path id="substance-tools.module.sourcepath">
+		<dirset dir="${substance-tools.src.dir}">
+			<include name="org/pushingpixels/substance/tools" />
+		</dirset>
+	</path>
+
+	<path id="substance-tools.module.toolssourcepath">
+		<dirset dir="${substance-tools.src.dir}">
+			<include name="tools" />
+		</dirset>
+	</path>
+
+	<target name="compile.module.substance-tools" depends="compile.module.substance-tools.production" description="compile module substance-tools" />
+
+	<target name="compile.module.substance-tools.production" description="compile module substance-tools production classes">
+		<mkdir dir="${substance-tools.output.dir}" />
+		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-tools.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true">
+			<compilerarg line="${javac.args.substance-tools}" />
+			<bootclasspath refid="substance-tools.module.bootclasspath" />
+			<classpath refid="substance-tools.module.classpath" />
+			<src refid="substance-tools.module.sourcepath" />
+			<patternset refid="excluded.from.compilation.substance-tools" />
+		</javac>
+		<copy todir="${substance-tools.output.dir}">
+			<fileset dir="${substance-tools.src.dir}">
+				<patternset refid="javac.resources" />
+				<type type="file" />
+				<patternset refid="excluded.from.compilation.substance-tools" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean.module.substance-tools" description="cleanup module">
+		<delete dir="${substance-tools.output.dir}" />
+	</target>
+
+	<target name="init" description="Build initialization">
+		<!-- Perform any build initialization in this target -->
+	</target>
+
+	<target name="jar-bin" description="create runtime jar">
+		<mkdir dir="${substance-tools.drop.dir}/${substance.version}" />
+		<delete file="${substance-tools.drop.dir}/${substance.version}/substance-tools-${substance.version}.jar" />
+
+		<jar compress="true" destfile="${substance-tools.drop.dir}/${substance.version}/substance-tools-${substance.version}.jar">
+			<fileset dir="${substance-tools.output.dir}/" excludes="test/**" />
+			<fileset dir="${module.substance-tools.basedir}/" includes="resources/**" />
+			<manifest>
+				<attribute name="Substance-Version" value="${substance.versionKey}" />
+				<attribute name="Flamingo-Version" value="${flamingo.versionKey}" />
+				<attribute name="Substance-Tools-BuildStamp" value="${build.time}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="distro" description="create distribution">
+		<delete file="${module.substance-tools.basedir}/substance-tools-all.zip" />
+		<zip destfile="${module.substance-tools.basedir}/substance-tools-all.zip" compress="true">
+			<fileset dir="${module.substance-tools.basedir}">
+				<include name="lib/**" />
+				<include name="src/**" />
+				<include name="www/*.html" />
+				<!--
+				<include name="docs/**" />
+				-->
+				<include name="www/docs/**" />
+				<include name="www/images/**" />
+				<include name="build.xml" />
+				<include name="build.properties" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="timestamp">
+		<tstamp>
+			<format property="build.time" pattern="MMMM d, yyyy HH:mm:ss z" />
+		</tstamp>
+		<echo message="Beginning build: ${build.time}" />
+		<echo message="Java home: ${java.home}" />
+		<echo message="Java version: ${ant.java.version}" />
+		<echo message="Ant version: ${ant.version}" />
+	</target>
+
+	<target name="jar" depends="jar-bin" description="create all jars" />
+
+	<target name="clean" depends="clean.module.substance-tools" description="cleanup all" />
+
+	<target name="all" depends="timestamp, init, clean, compile.module.substance-tools, jar" description="build all" />
+</project>
