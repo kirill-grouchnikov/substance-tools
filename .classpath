@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/laf-plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/laf-widget"/>
 	<classpathentry kind="lib" path="/substance/lib/trident-1.4.jar" sourcepath="/trident"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance-swingx"/>
@@ -17,5 +16,6 @@
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-reflect-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-swing-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-util-1.1.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/flamingo-demo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

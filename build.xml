@@ -51,7 +51,9 @@
 	<property name="substance-tools.src.dir" value="${module.substance-tools.basedir}/src/" />
 	
     <property name="flamingo.basedir" value="${module.substance-tools.basedir}/../flamingo" />
+    <property name="flamingo.demo.basedir" value="${module.substance-tools.basedir}/../flamingo-demo" />
     <property name="substance.basedir" value="${module.substance-tools.basedir}/../substance" />
+    <property name="substance.flamingo.basedir" value="${module.substance-tools.basedir}/../substance-flamingo" />
     <property name="substance.swingx.basedir" value="${module.substance-tools.basedir}/../substance-swingx" />
     <property name="substance.extras.basedir" value="${module.substance-tools.basedir}/../substance-extras" />
     <property name="substance.demo.basedir" value="${module.substance-tools.basedir}/../substance-demo" />
@@ -75,14 +77,15 @@
 		<pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
 		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
 		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
-		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-tst-${flamingo.version}.jar" />
+		<pathelement location="${flamingo.demo.basedir}/drop/${flamingo.version}/flamingo-demo-${flamingo.version}.jar" />
         <pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
-        <pathelement location="${flamingo.basedir}/lib/forms-1.2.0.jar" />
+        <pathelement location="${substance.demo.basedir}/lib/build/forms-1.2.0.jar" />
         <pathelement location="${substance.demo.basedir}/lib/test/fest-assert-1.2.jar" />
         <pathelement location="${substance.demo.basedir}/lib/test/fest-reflect-1.2.jar" />
         <pathelement location="${substance.demo.basedir}/lib/test/fest-swing-1.2.jar" />
         <pathelement location="${substance.demo.basedir}/lib/test/fest-util-1.1.2.jar" />
         <pathelement location="${substance.demo.basedir}/drop/${substance.version}/substance-demo-${substance.version}.jar" />
+        <pathelement location="${substance.flamingo.basedir}/drop/${substance.version}/substance-flamingo-${substance.version}.jar" />
         <pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
         <pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
 	</path>
@@ -96,7 +99,7 @@
 
 	<path id="substance-tools.module.sourcepath">
 		<dirset dir="${substance-tools.src.dir}">
-			<include name="org/pushingpixels/substance/tools" />
+			<include name="org/pushingpixels/tools/substance" />
 		</dirset>
 	</path>
 
