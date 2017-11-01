@@ -63,7 +63,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultListCellRenderer;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 
 public class JColorSchemeList extends JComponent {

@@ -42,8 +42,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.tools.substance.common.JImageComponent;
 
 public class JElectrifiedImageComponent extends JComponent {

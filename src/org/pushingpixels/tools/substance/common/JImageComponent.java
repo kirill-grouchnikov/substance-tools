@@ -39,8 +39,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 public class JImageComponent extends JPanel {
 	private BufferedImage image;

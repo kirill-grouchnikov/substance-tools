@@ -33,8 +33,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Dialog.ModalityType;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -56,27 +56,26 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidgetAdapter;
-import org.pushingpixels.lafwidget.animation.AnimationConfigurationManager;
-import org.pushingpixels.lafwidget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.substance.api.AnimationConfigurationManager;
 import org.pushingpixels.substance.api.ColorSchemeTransform;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
-public class RootPaneTitlePaneUiDebugger extends LafWidgetAdapter<JRootPane> {
+/**
+ * To use this in your app, call {@link SubstanceWidgetRepository#registerWidget(String, Class, boolean)} 
+ */
+public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 	protected MouseListener substanceDebugUiListener;
 
 	protected JComponent titlePane;
-
-	@Override
-	public boolean requiresCustomLafSupport() {
-		return false;
-	}
 
 	@Override
 	public void installUI() {

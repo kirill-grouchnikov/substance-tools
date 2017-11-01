@@ -38,7 +38,7 @@ import java.awt.RenderingHints;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 public class JHsvGraph extends JComponent {
 	private static Color COLOR_HUE = new Color(159, 41, 54);

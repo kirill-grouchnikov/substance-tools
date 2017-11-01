@@ -47,7 +47,7 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 public class JColorComponent extends JComponent {
 	private JRadioButton radio;
