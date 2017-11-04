@@ -36,16 +36,16 @@ import javax.swing.SwingUtilities;
 
 import org.jdesktop.swingx.JXStatusBar;
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_copy;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_cut;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_delete;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_paste;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_select_all;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_center;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_fill;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_left;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_right;
-import org.pushingpixels.demo.substance.main.check.svg.Process_stop;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_copy;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_delete;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_paste;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_select_all;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_center;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_fill;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_left;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_right;
+import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
@@ -115,30 +115,30 @@ public class StatusBarFrame extends JFrame {
 		// toolBar.setLayout(new BoxLayout(toolBar,BoxLayout.LINE_AXIS));
 		// toolBar.setFloatable(false);
 
-		JButton buttonCut = new JButton(Edit_cut.of(size, size));
+		JButton buttonCut = new JButton(edit_cut.of(size, size));
 		toolBar.add(buttonCut);
-		JButton buttonCopy = new JButton(Edit_copy.of(size, size));
+		JButton buttonCopy = new JButton(edit_copy.of(size, size));
 		toolBar.add(buttonCopy);
-		JButton buttonPaste = new JButton(Edit_paste.of(size, size));
+		JButton buttonPaste = new JButton(edit_paste.of(size, size));
 		toolBar.add(buttonPaste);
-		JButton buttonSelectAll = new JButton(Edit_select_all.of(size, size));
+		JButton buttonSelectAll = new JButton(edit_select_all.of(size, size));
 		toolBar.add(buttonSelectAll);
-		JButton buttonDelete = new JButton(Edit_delete.of(size, size));
+		JButton buttonDelete = new JButton(edit_delete.of(size, size));
 		toolBar.add(buttonDelete);
 		toolBar.addSeparator();
 
-		JToggleButton buttonFormatCenter = new JToggleButton(Format_justify_center.of(size, size));
+		JToggleButton buttonFormatCenter = new JToggleButton(format_justify_center.of(size, size));
 		toolBar.add(buttonFormatCenter);
-		JToggleButton buttonFormatLeft = new JToggleButton(Format_justify_left.of(size, size));
+		JToggleButton buttonFormatLeft = new JToggleButton(format_justify_left.of(size, size));
 		toolBar.add(buttonFormatLeft);
-		JToggleButton buttonFormatRight = new JToggleButton(Format_justify_right.of(size, size));
+		JToggleButton buttonFormatRight = new JToggleButton(format_justify_right.of(size, size));
 		toolBar.add(buttonFormatRight);
-		JToggleButton buttonFormatFill = new JToggleButton(Format_justify_fill.of(size, size));
+		JToggleButton buttonFormatFill = new JToggleButton(format_justify_fill.of(size, size));
 		toolBar.add(buttonFormatFill);
 		toolBar.addSeparator();
 
 		toolBar.add(Box.createGlue());
-		JButton buttonExit = new JButton(Process_stop.of(size, size));
+		JButton buttonExit = new JButton(process_stop.of(size, size));
 		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
