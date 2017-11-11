@@ -62,7 +62,6 @@
     <property name="substance.versionKey" value="8.0.0dev Wyoming" />
     <property name="flamingo.version" value="6.0.00-dev" />
     <property name="flamingo.versionKey" value="6.0.00dev Liadan" />
-    <property name="trident.version" value="1.4" />
 
 	<path id="substance-tools.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
@@ -75,7 +74,6 @@
 		<path refid="${module.jdk.classpath.substance-tools}" />
         <pathelement location="${substance.swingx.basedir}/lib/swingx-all-1.6.4.jar" />
 		<pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
-		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
 		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
 		<pathelement location="${flamingo.demo.basedir}/drop/${flamingo.version}/flamingo-demo-${flamingo.version}.jar" />
         <pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
