@@ -56,258 +56,272 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
-import org.pushingpixels.substance.api.ColorSchemeTransform;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
-import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.api.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 /**
- * To use this in your app, call {@link SubstanceWidgetRepository#registerWidget(String, Class, boolean)} 
+ * To use this in your app, call
+ * {@link SubstanceCortex.GlobalScope#registerWidget(String, Class, boolean)}
  */
 public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
-	protected MouseListener substanceDebugUiListener;
+    protected MouseListener substanceDebugUiListener;
 
-	protected JComponent titlePane;
+    protected JComponent titlePane;
 
-	@Override
-	public void installUI() {
-		SwingUtilities.invokeLater(() -> {
-			if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel))
-				return;
+    @Override
+    public void installUI() {
+        SwingUtilities.invokeLater(() -> {
+            if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel))
+                return;
 
-			titlePane = SubstanceLookAndFeel.getTitlePaneComponent(SwingUtilities.getWindowAncestor(jcomp));
-			if (titlePane != null) {
-				substanceDebugUiListener = new MouseAdapter() {
-					@Override
-					public void mousePressed(MouseEvent e) {
-						process(e);
-					}
+            titlePane = SubstanceCortex.WindowScope
+                    .getTitlePaneComponent(SwingUtilities.getWindowAncestor(jcomp));
+            if (titlePane != null) {
+                substanceDebugUiListener = new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        process(e);
+                    }
 
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						process(e);
-					}
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        process(e);
+                    }
 
-					protected void process(MouseEvent e) {
-						if (!e.isPopupTrigger())
-							return;
+                    protected void process(MouseEvent e) {
+                        if (!e.isPopupTrigger())
+                            return;
 
-						JPopupMenu popup = new JPopupMenu();
-						JMenu cbMenu = new JMenu("Color blindness");
-						JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
-						protanopiaCurrent.addActionListener(new SkinChanger(
-								(SubstanceColorScheme scheme) -> new ProtanopiaColorScheme(scheme),
-								"Protanopia current"));
-						cbMenu.add(protanopiaCurrent);
-						JMenuItem deuteranopiaCurrent = new JMenuItem("Deuteranopia current");
-						deuteranopiaCurrent.addActionListener(new SkinChanger(
-								(SubstanceColorScheme scheme) -> new DeuteranopiaColorScheme(scheme),
-								"Deuteranopia current"));
-						cbMenu.add(deuteranopiaCurrent);
-						JMenuItem tritanopiaCurrent = new JMenuItem("Tritanopia current");
-						tritanopiaCurrent.addActionListener(new SkinChanger(
-								(SubstanceColorScheme scheme) -> new TritanopiaColorScheme(scheme),
-								"Tritanopia current"));
-						cbMenu.add(tritanopiaCurrent);
+                        JPopupMenu popup = new JPopupMenu();
+                        JMenu cbMenu = new JMenu("Color blindness");
+                        JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
+                        protanopiaCurrent.addActionListener(new SkinChanger(
+                                (SubstanceColorScheme scheme) -> new ProtanopiaColorScheme(scheme),
+                                "Protanopia current"));
+                        cbMenu.add(protanopiaCurrent);
+                        JMenuItem deuteranopiaCurrent = new JMenuItem("Deuteranopia current");
+                        deuteranopiaCurrent.addActionListener(new SkinChanger((
+                                SubstanceColorScheme scheme) -> new DeuteranopiaColorScheme(scheme),
+                                "Deuteranopia current"));
+                        cbMenu.add(deuteranopiaCurrent);
+                        JMenuItem tritanopiaCurrent = new JMenuItem("Tritanopia current");
+                        tritanopiaCurrent.addActionListener(new SkinChanger(
+                                (SubstanceColorScheme scheme) -> new TritanopiaColorScheme(scheme),
+                                "Tritanopia current"));
+                        cbMenu.add(tritanopiaCurrent);
 
-						cbMenu.addSeparator();
+                        cbMenu.addSeparator();
 
-						JMenuItem restoreOriginal = new JMenuItem("Restore original");
-						if (SubstanceLookAndFeel.getCurrentSkin(null).getColorScheme(null,
-								ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
-							restoreOriginal.addActionListener(new SkinChanger((SubstanceColorScheme scheme) -> {
-								if (scheme instanceof ColorBlindColorScheme)
-									return ((ColorBlindColorScheme) scheme).getOrigScheme();
-								return scheme;
-							}, "Current"));
-						} else {
-							restoreOriginal.setEnabled(false);
-						}
-						cbMenu.add(restoreOriginal);
+                        JMenuItem restoreOriginal = new JMenuItem("Restore original");
+                        if (SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
+                                ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
+                            restoreOriginal.addActionListener(
+                                    new SkinChanger((SubstanceColorScheme scheme) -> {
+                                        if (scheme instanceof ColorBlindColorScheme)
+                                            return ((ColorBlindColorScheme) scheme).getOrigScheme();
+                                        return scheme;
+                                    }, "Current"));
+                        } else {
+                            restoreOriginal.setEnabled(false);
+                        }
+                        cbMenu.add(restoreOriginal);
 
-						popup.add(cbMenu);
+                        popup.add(cbMenu);
 
-						JMenu animMenu = new JMenu("Animation rate");
-						JMenuItem debugNone = new JMenuItem("None");
-						debugNone.addActionListener(new AnimationChanger(0));
-						animMenu.add(debugNone);
-						JMenuItem debugAnim = new JMenuItem("Debug rate (extra slow)");
-						debugAnim.addActionListener(new AnimationChanger(5000));
-						animMenu.add(debugAnim);
-						JMenuItem debugAnimFast = new JMenuItem("Debug rate (faster)");
-						debugAnimFast.addActionListener(new AnimationChanger(2500));
-						animMenu.add(debugAnimFast);
-						JMenuItem debugSlow = new JMenuItem("Slow rate");
-						debugSlow.addActionListener(new AnimationChanger(1000));
-						animMenu.add(debugSlow);
-						JMenuItem debugRegular = new JMenuItem("Regular rate");
-						debugRegular.addActionListener(new AnimationChanger(250));
-						animMenu.add(debugRegular);
-						JMenuItem debugFast = new JMenuItem("Fast rate");
-						debugFast.addActionListener(new AnimationChanger(100));
-						animMenu.add(debugFast);
+                        JMenu animMenu = new JMenu("Animation rate");
+                        JMenuItem debugNone = new JMenuItem("None");
+                        debugNone.addActionListener(new AnimationChanger(0));
+                        animMenu.add(debugNone);
+                        JMenuItem debugAnim = new JMenuItem("Debug rate (extra slow)");
+                        debugAnim.addActionListener(new AnimationChanger(5000));
+                        animMenu.add(debugAnim);
+                        JMenuItem debugAnimFast = new JMenuItem("Debug rate (faster)");
+                        debugAnimFast.addActionListener(new AnimationChanger(2500));
+                        animMenu.add(debugAnimFast);
+                        JMenuItem debugSlow = new JMenuItem("Slow rate");
+                        debugSlow.addActionListener(new AnimationChanger(1000));
+                        animMenu.add(debugSlow);
+                        JMenuItem debugRegular = new JMenuItem("Regular rate");
+                        debugRegular.addActionListener(new AnimationChanger(250));
+                        animMenu.add(debugRegular);
+                        JMenuItem debugFast = new JMenuItem("Fast rate");
+                        debugFast.addActionListener(new AnimationChanger(100));
+                        animMenu.add(debugFast);
 
-						popup.add(animMenu);
+                        popup.add(animMenu);
 
-						JMenu focusMenu = new JMenu("Focus kind");
-						for (FocusKind fKind : FocusKind.values()) {
-							JMenuItem focusMenuItem = new JMenuItem(fKind.name().toLowerCase());
-							focusMenuItem.addActionListener(new FocusKindChanger(fKind));
-							focusMenu.add(focusMenuItem);
-						}
-						popup.add(focusMenu);
+                        JMenu focusMenu = new JMenu("Focus kind");
+                        for (FocusKind fKind : FocusKind.values()) {
+                            JMenuItem focusMenuItem = new JMenuItem(fKind.name().toLowerCase());
+                            focusMenuItem.addActionListener(new FocusKindChanger(fKind));
+                            focusMenu.add(focusMenuItem);
+                        }
+                        popup.add(focusMenu);
 
-						JMenuItem dumpHierarchy = new JMenuItem("Dump hierarchy");
-						dumpHierarchy.addActionListener((ActionEvent event) -> dump(jcomp, 0));
-						popup.add(dumpHierarchy);
+                        JMenuItem dumpHierarchy = new JMenuItem("Dump hierarchy");
+                        dumpHierarchy.addActionListener((ActionEvent event) -> dump(jcomp, 0));
+                        popup.add(dumpHierarchy);
 
-						final JCheckBoxMenuItem ltrChange = new JCheckBoxMenuItem("Is left-to-right");
-						ltrChange.setSelected(jcomp.getComponentOrientation().isLeftToRight());
-						ltrChange.addActionListener((ActionEvent event) -> SwingUtilities
-								.invokeLater(() -> jcomp.applyComponentOrientation(ltrChange.isSelected()
-										? ComponentOrientation.LEFT_TO_RIGHT : ComponentOrientation.RIGHT_TO_LEFT)));
-						popup.add(ltrChange);
+                        final JCheckBoxMenuItem ltrChange = new JCheckBoxMenuItem(
+                                "Is left-to-right");
+                        ltrChange.setSelected(jcomp.getComponentOrientation().isLeftToRight());
+                        ltrChange.addActionListener((ActionEvent event) -> SwingUtilities
+                                .invokeLater(() -> jcomp.applyComponentOrientation(
+                                        ltrChange.isSelected() ? ComponentOrientation.LEFT_TO_RIGHT
+                                                : ComponentOrientation.RIGHT_TO_LEFT)));
+                        popup.add(ltrChange);
 
-						final JCheckBoxMenuItem useThemedIcons = new JCheckBoxMenuItem("Use themed icons");
-						useThemedIcons.setSelected(SubstanceCoreUtilities.useThemedDefaultIcon(null));
-						useThemedIcons.addActionListener((ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-							UIManager.put(SubstanceLookAndFeel.USE_THEMED_DEFAULT_ICONS,
-									useThemedIcons.isSelected() ? Boolean.TRUE : null);
-							jcomp.repaint();
-						}));
-						popup.add(useThemedIcons);
+                        final JCheckBoxMenuItem useThemedIcons = new JCheckBoxMenuItem(
+                                "Use themed icons");
+                        useThemedIcons
+                                .setSelected(SubstanceCoreUtilities.useThemedDefaultIcon(null));
+                        useThemedIcons.addActionListener(
+                                (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
+                                    UIManager.put(SubstanceLookAndFeel.USE_THEMED_DEFAULT_ICONS,
+                                            useThemedIcons.isSelected() ? Boolean.TRUE : null);
+                                    jcomp.repaint();
+                                }));
+                        popup.add(useThemedIcons);
 
-						final JCheckBoxMenuItem ghostDebugMode = new JCheckBoxMenuItem("Ghost debug mode");
-						ghostDebugMode.addActionListener((ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-							ghostDebugMode.setEnabled(false);
-							GhostPaintingUtils.MAX_ICON_GHOSTING_ALPHA = 0.8f;
-							GhostPaintingUtils.MIN_ICON_GHOSTING_ALPHA = 0.6f;
-							GhostPaintingUtils.MAX_PRESS_GHOSTING_ALPHA = 0.8f;
-							GhostPaintingUtils.MIN_PRESS_GHOSTING_ALPHA = 0.6f;
-							GhostPaintingUtils.DECAY_FACTOR = 0.7f;
-						}));
-						popup.add(ghostDebugMode);
+                        final JCheckBoxMenuItem ghostDebugMode = new JCheckBoxMenuItem(
+                                "Ghost debug mode");
+                        ghostDebugMode.addActionListener(
+                                (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
+                                    ghostDebugMode.setEnabled(false);
+                                    GhostPaintingUtils.MAX_ICON_GHOSTING_ALPHA = 0.8f;
+                                    GhostPaintingUtils.MIN_ICON_GHOSTING_ALPHA = 0.6f;
+                                    GhostPaintingUtils.MAX_PRESS_GHOSTING_ALPHA = 0.8f;
+                                    GhostPaintingUtils.MIN_PRESS_GHOSTING_ALPHA = 0.6f;
+                                    GhostPaintingUtils.DECAY_FACTOR = 0.7f;
+                                }));
+                        popup.add(ghostDebugMode);
 
-						JMenuItem showCacheStats = new JMenuItem("Show cache stats");
-						showCacheStats.addActionListener((ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-							final JTextArea textArea = new JTextArea();
-							java.util.List<String> stats = LazyResettableHashMap.getStats();
-							if (stats != null) {
-								for (String stat : stats) {
-									textArea.append(stat + "\n");
-								}
-							}
-							final JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(jcomp),
-									ModalityType.APPLICATION_MODAL);
-							dialog.setTitle("Substance cache stats");
-							dialog.setLayout(new BorderLayout());
-							dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
-							JButton dismiss = new JButton("Dismiss");
-							dismiss.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									dialog.dispose();
-								}
-							});
-							JButton copyToClipboard = new JButton("Copy to clipboard");
-							copyToClipboard.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									textArea.selectAll();
-									TransferHandler.getCopyAction().actionPerformed(
-											new ActionEvent(textArea, ActionEvent.ACTION_PERFORMED, "Copy"));
-								}
-							});
-							JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-							controls.add(copyToClipboard);
-							controls.add(dismiss);
-							dialog.add(controls, BorderLayout.SOUTH);
+                        JMenuItem showCacheStats = new JMenuItem("Show cache stats");
+                        showCacheStats.addActionListener(
+                                (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
+                                    final JTextArea textArea = new JTextArea();
+                                    java.util.List<String> stats = LazyResettableHashMap.getStats();
+                                    if (stats != null) {
+                                        for (String stat : stats) {
+                                            textArea.append(stat + "\n");
+                                        }
+                                    }
+                                    final JDialog dialog = new JDialog(
+                                            SwingUtilities.getWindowAncestor(jcomp),
+                                            ModalityType.APPLICATION_MODAL);
+                                    dialog.setTitle("Substance cache stats");
+                                    dialog.setLayout(new BorderLayout());
+                                    dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+                                    JButton dismiss = new JButton("Dismiss");
+                                    dismiss.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            dialog.dispose();
+                                        }
+                                    });
+                                    JButton copyToClipboard = new JButton("Copy to clipboard");
+                                    copyToClipboard.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            textArea.selectAll();
+                                            TransferHandler.getCopyAction()
+                                                    .actionPerformed(new ActionEvent(textArea,
+                                                            ActionEvent.ACTION_PERFORMED, "Copy"));
+                                        }
+                                    });
+                                    JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+                                    controls.add(copyToClipboard);
+                                    controls.add(dismiss);
+                                    dialog.add(controls, BorderLayout.SOUTH);
 
-							dialog.setSize(500, 400);
-							dialog.setLocationRelativeTo(SwingUtilities.getRootPane(jcomp));
-							dialog.setVisible(true);
-						}));
-						popup.add(showCacheStats);
+                                    dialog.setSize(500, 400);
+                                    dialog.setLocationRelativeTo(SwingUtilities.getRootPane(jcomp));
+                                    dialog.setVisible(true);
+                                }));
+                        popup.add(showCacheStats);
 
-						popup.show(titlePane, e.getX(), e.getY());
-					}
-				};
-				titlePane.addMouseListener(substanceDebugUiListener);
-			}
-		});
-	}
+                        popup.show(titlePane, e.getX(), e.getY());
+                    }
+                };
+                titlePane.addMouseListener(substanceDebugUiListener);
+            }
+        });
+    }
 
-	@Override
-	public void uninstallUI() {
-		if (this.substanceDebugUiListener != null) {
-			titlePane.removeMouseListener(this.substanceDebugUiListener);
-			this.substanceDebugUiListener = null;
-		}
-	}
+    @Override
+    public void uninstallUI() {
+        if (this.substanceDebugUiListener != null) {
+            titlePane.removeMouseListener(this.substanceDebugUiListener);
+            this.substanceDebugUiListener = null;
+        }
+    }
 
-	protected static class SkinChanger implements ActionListener {
-		protected ColorSchemeTransform transform;
+    protected static class SkinChanger implements ActionListener {
+        protected ColorSchemeTransform transform;
 
-		protected String name;
+        protected String name;
 
-		public SkinChanger(ColorSchemeTransform transform, String name) {
-			super();
-			this.transform = transform;
-			this.name = name;
-		}
+        public SkinChanger(ColorSchemeTransform transform, String name) {
+            super();
+            this.transform = transform;
+            this.name = name;
+        }
 
-		public void actionPerformed(ActionEvent e) {
-			SwingUtilities.invokeLater(() -> {
-				SubstanceSkin newSkin = SubstanceLookAndFeel.getCurrentSkin(null).transform(transform, name);
-				SubstanceLookAndFeel.setSkin(newSkin);
-			});
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            SwingUtilities.invokeLater(() -> {
+                SubstanceSkin newSkin = SubstanceCortex.GlobalScope.getCurrentSkin()
+                        .transform(transform, name);
+                SubstanceCortex.GlobalScope.setSkin(newSkin);
+            });
+        }
+    }
 
-	protected static class AnimationChanger implements ActionListener {
-		protected long newAnimationDuration;
+    protected static class AnimationChanger implements ActionListener {
+        protected long newAnimationDuration;
 
-		public AnimationChanger(long newAnimationDuration) {
-			super();
-			this.newAnimationDuration = newAnimationDuration;
-		}
+        public AnimationChanger(long newAnimationDuration) {
+            super();
+            this.newAnimationDuration = newAnimationDuration;
+        }
 
-		public void actionPerformed(ActionEvent e) {
-			SwingUtilities.invokeLater(
-					() -> AnimationConfigurationManager.getInstance().setTimelineDuration(newAnimationDuration));
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            SwingUtilities.invokeLater(
+                    () -> SubstanceCortex.GlobalScope.setTimelineDuration(newAnimationDuration));
+        }
+    }
 
-	protected static class FocusKindChanger implements ActionListener {
-		protected FocusKind newFocusKind;
+    protected static class FocusKindChanger implements ActionListener {
+        protected FocusKind newFocusKind;
 
-		public FocusKindChanger(FocusKind newFocusKind) {
-			super();
-			this.newFocusKind = newFocusKind;
-		}
+        public FocusKindChanger(FocusKind newFocusKind) {
+            super();
+            this.newFocusKind = newFocusKind;
+        }
 
-		public void actionPerformed(ActionEvent e) {
-			SwingUtilities.invokeLater(() -> UIManager.put(SubstanceLookAndFeel.FOCUS_KIND, newFocusKind));
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            SwingUtilities.invokeLater(
+                    () -> UIManager.put(SubstanceLookAndFeel.FOCUS_KIND, newFocusKind));
+        }
+    }
 
-	public static void dump(Component comp, int level) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < level; i++)
-			sb.append("  ");
-		sb.append(comp.toString());
-		System.out.println(sb);
-		if (comp instanceof Container) {
-			Container cont = (Container) comp;
-			for (int i = 0; i < cont.getComponentCount(); i++) {
-				dump(cont.getComponent(i), level + 1);
-			}
-		}
-	}
+    public static void dump(Component comp, int level) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < level; i++)
+            sb.append("  ");
+        sb.append(comp.toString());
+        System.out.println(sb);
+        if (comp instanceof Container) {
+            Container cont = (Container) comp;
+            for (int i = 0; i < cont.getComponentCount(); i++) {
+                dump(cont.getComponent(i), level + 1);
+            }
+        }
+    }
 }

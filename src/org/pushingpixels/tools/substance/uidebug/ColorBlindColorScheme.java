@@ -31,8 +31,8 @@ package org.pushingpixels.tools.substance.uidebug;
 
 import java.awt.Color;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.BaseColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 /**
  * Base class for color schemes simulating color-blind users.

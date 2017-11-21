@@ -43,7 +43,7 @@ import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.jdesktop.swingx.JXErrorPane;
 import org.jdesktop.swingx.error.ErrorInfo;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 
 /**
@@ -90,7 +90,7 @@ public class ErrorPaneRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(skin);
+			    SubstanceCortex.GlobalScope.setSkin(skin);
 				JDialog.setDefaultLookAndFeelDecorated(true);
 			}
 		});

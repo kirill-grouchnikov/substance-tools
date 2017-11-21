@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.uidebug;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 
 /**

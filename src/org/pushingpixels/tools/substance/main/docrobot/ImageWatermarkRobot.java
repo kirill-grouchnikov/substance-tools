@@ -43,7 +43,7 @@ import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
@@ -84,7 +84,7 @@ public abstract class ImageWatermarkRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				JFrame.setDefaultLookAndFeelDecorated(true);
 			}
 		});

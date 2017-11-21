@@ -47,8 +47,8 @@ import org.fest.swing.edt.GuiQuery;
 import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
@@ -100,7 +100,7 @@ public abstract class SkinRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(skin);
+			    SubstanceCortex.GlobalScope.setSkin(skin);
 				JFrame.setDefaultLookAndFeelDecorated(true);
 			}
 		});
@@ -115,7 +115,7 @@ public abstract class SkinRobot {
 				original.setDimension(new Dimension(16, 16));
 				sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null,
 						original,
-						SubstanceLookAndFeel.getCurrentSkin(sf.getRootPane())
+						SubstanceCortex.ComponentScope.getCurrentSkin(sf.getRootPane())
 								.getActiveColorScheme(
 										DecorationAreaType.PRIMARY_TITLE_PANE),
 						0.0f));

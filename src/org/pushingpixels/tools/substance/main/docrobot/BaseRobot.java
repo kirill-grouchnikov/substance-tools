@@ -44,8 +44,8 @@ import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
@@ -57,112 +57,109 @@ import org.pushingpixels.tools.substance.main.docrobot.svg.Image_x_generic;
  * @author Kirill Grouchnikov
  */
 public abstract class BaseRobot {
-	/**
-	 * The associated Substance skin.
-	 */
-	protected SubstanceSkin skin;
+    /**
+     * The associated Substance skin.
+     */
+    protected SubstanceSkin skin;
 
-	/**
-	 * The screenshot filename.
-	 */
-	protected String screenshotFilename;
+    /**
+     * The screenshot filename.
+     */
+    protected String screenshotFilename;
 
-	/**
-	 * The frame instance.
-	 */
-	protected SampleFrame sf;
+    /**
+     * The frame instance.
+     */
+    protected SampleFrame sf;
 
-	/**
-	 * Creates the new screenshot robot.
-	 * 
-	 * @param skin
-	 *            The skin.
-	 * @param screenshotFilename
-	 *            The screenshot filename.
-	 */
-	public BaseRobot(SubstanceSkin skin, String screenshotFilename) {
-		this.skin = skin;
-		this.screenshotFilename = screenshotFilename;
-	}
+    /**
+     * Creates the new screenshot robot.
+     * 
+     * @param skin
+     *            The skin.
+     * @param screenshotFilename
+     *            The screenshot filename.
+     */
+    public BaseRobot(SubstanceSkin skin, String screenshotFilename) {
+        this.skin = skin;
+        this.screenshotFilename = screenshotFilename;
+    }
 
-	/**
-	 * Runs the screenshot process.
-	 */
-	public void run() {
-		long start = System.currentTimeMillis();
+    /**
+     * Runs the screenshot process.
+     */
+    public void run() {
+        long start = System.currentTimeMillis();
 
-		Robot robot = BasicRobot.robotWithNewAwtHierarchy();
+        Robot robot = BasicRobot.robotWithNewAwtHierarchy();
 
-		// set skin
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(skin);
-				JFrame.setDefaultLookAndFeelDecorated(true);
-			}
-		});
-		robot.waitForIdle();
+        // set skin
+        GuiActionRunner.execute(new GuiTask() {
+            @Override
+            protected void executeInEDT() throws Throwable {
+                SubstanceCortex.GlobalScope.setSkin(skin);
+                JFrame.setDefaultLookAndFeelDecorated(true);
+            }
+        });
+        robot.waitForIdle();
 
-		// create the frame and set the icon image
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() throws Throwable {
-				sf = new SampleFrame();
-				Image_x_generic original = new Image_x_generic();
-				original.setDimension(new Dimension(16, 16));
-				sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null,
-						original,
-						SubstanceLookAndFeel.getCurrentSkin(sf.getRootPane())
-								.getActiveColorScheme(
-										DecorationAreaType.PRIMARY_TITLE_PANE),
-						0.0f));
-				sf.setSize(340, 254);
-				sf.setLocationRelativeTo(null);
-				sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				sf.setVisible(true);
-			}
-		});
-		robot.waitForIdle();
+        // create the frame and set the icon image
+        GuiActionRunner.execute(new GuiTask() {
+            @Override
+            protected void executeInEDT() throws Throwable {
+                sf = new SampleFrame();
+                Image_x_generic original = new Image_x_generic();
+                original.setDimension(new Dimension(16, 16));
+                sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null, original,
+                        SubstanceCortex.ComponentScope.getCurrentSkin(sf.getRootPane())
+                                .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
+                        0.0f));
+                sf.setSize(340, 254);
+                sf.setLocationRelativeTo(null);
+                sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                sf.setVisible(true);
+            }
+        });
+        robot.waitForIdle();
 
-		// wait for one second
-		Pause.pause(1000);
+        // wait for one second
+        Pause.pause(1000);
 
-		// make the screenshot
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() throws Throwable {
-				makeScreenshot();
-			}
-		});
-		robot.waitForIdle();
+        // make the screenshot
+        GuiActionRunner.execute(new GuiTask() {
+            @Override
+            protected void executeInEDT() throws Throwable {
+                makeScreenshot();
+            }
+        });
+        robot.waitForIdle();
 
-		// dispose the frame
-		GuiActionRunner.execute(new GuiTask() {
-			@Override
-			protected void executeInEDT() throws Throwable {
-				sf.dispose();
-			}
-		});
-		robot.waitForIdle();
+        // dispose the frame
+        GuiActionRunner.execute(new GuiTask() {
+            @Override
+            protected void executeInEDT() throws Throwable {
+                sf.dispose();
+            }
+        });
+        robot.waitForIdle();
 
-		long end = System.currentTimeMillis();
-		System.out.println(this.getClass().getSimpleName() + " : "
-				+ (end - start) + "ms");
-	}
+        long end = System.currentTimeMillis();
+        System.out.println(this.getClass().getSimpleName() + " : " + (end - start) + "ms");
+    }
 
-	/**
-	 * Creates the screenshot and saves it on the disk.
-	 */
-	public void makeScreenshot() {
-		BufferedImage bi = SubstanceCoreUtilities.getBlankImage(sf.getWidth(), sf.getHeight());
-		Graphics g = bi.getGraphics();
-		sf.paint(g);
-		try {
-			File target = new File(this.screenshotFilename);
-			target.getParentFile().mkdirs();
-			ImageIO.write(bi, "png", target);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-	}
+    /**
+     * Creates the screenshot and saves it on the disk.
+     */
+    public void makeScreenshot() {
+        BufferedImage bi = SubstanceCoreUtilities.getBlankImage(sf.getWidth(), sf.getHeight());
+        Graphics g = bi.getGraphics();
+        sf.paint(g);
+        try {
+            File target = new File(this.screenshotFilename);
+            target.getParentFile().mkdirs();
+            ImageIO.write(bi, "png", target);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 }

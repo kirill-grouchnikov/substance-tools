@@ -33,9 +33,9 @@ import javax.swing.UIManager;
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.JXTaskPaneContainer;
-import org.pushingpixels.substance.api.SubstanceConstants.MenuGutterFillKind;
+import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -67,7 +67,7 @@ public class TaskPaneFrame extends JFrame {
 
         final JCheckBox useConstantThemesOnDialogs = new JCheckBox("constant themes");
         useConstantThemesOnDialogs
-                .setSelected(SubstanceLookAndFeel.isToUseConstantThemesOnDialogs());
+                .setSelected(SubstanceCortex.GlobalScope.isToUseConstantThemesOnDialogs());
         builder.append("Pane icons", useConstantThemesOnDialogs);
 
         final JComboBox placementCombo = new JComboBox(

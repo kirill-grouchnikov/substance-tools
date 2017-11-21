@@ -29,7 +29,7 @@ import javax.swing.plaf.ComponentUI;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import org.pushingpixels.substance.swingx.SubstanceErrorPaneUI;
@@ -65,7 +65,7 @@ public class ErrorPaneRunner {
 		UIManager.put("ErrorPaneUI", MyErrorPaneUI.class.getName());
 
 		String subfolder = "errorpane";
-		Map<String, SkinInfo> skins = SubstanceLookAndFeel.getAllSkins();
+		Map<String, SkinInfo> skins = SubstanceCortex.GlobalScope.getAllSkins();
 		Robot robot = BasicRobot.robotWithNewAwtHierarchy();
 		for (Map.Entry<String, SkinInfo> skinEntry : skins.entrySet()) {
 			String key = skinEntry.getKey();

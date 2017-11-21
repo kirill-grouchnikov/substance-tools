@@ -54,10 +54,10 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 import org.pushingpixels.tools.substance.common.JImageComponent;
 
@@ -65,7 +65,7 @@ public class Electra extends JFrame {
 	public Electra() {
 		super("Electra");
 		this.setIconImage(SubstanceLogo
-				.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(
+				.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
 						this.getRootPane())
 						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
 								ColorSchemeAssociationKind.FILL,
@@ -85,12 +85,12 @@ public class Electra extends JFrame {
 			public void paintBorder(Component c, Graphics g, int x, int y,
 					int width, int height) {
 				Graphics2D g2d = (Graphics2D) g.create();
-				g2d.setColor(SubstanceLookAndFeel.getCurrentSkin(c)
+				g2d.setColor(SubstanceCortex.ComponentScope.getCurrentSkin(c)
 						.getColorScheme(c, ColorSchemeAssociationKind.BORDER,
 								ComponentState.ENABLED).getMidColor());
 				g2d.drawLine(x + width - 2, y, x + width - 2, y + height - 1);
 				g2d.setComposite(AlphaComposite.SrcOver.derive(0.8f));
-				g2d.setColor(SubstanceLookAndFeel.getCurrentSkin(c)
+				g2d.setColor(SubstanceCortex.ComponentScope.getCurrentSkin(c)
 						.getColorScheme(c, ColorSchemeAssociationKind.BORDER,
 								ComponentState.ENABLED).getExtraLightColor()
 						.brighter());
@@ -160,7 +160,7 @@ public class Electra extends JFrame {
 			public void run() {
 				JFrame.setDefaultLookAndFeelDecorated(true);
 				JDialog.setDefaultLookAndFeelDecorated(true);
-				SubstanceLookAndFeel.setSkin(new GeminiSkin());
+				SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 
 				new Electra().setVisible(true);
 			}

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 /**
  * The base class for taking a single screenshot for Substance documentation.

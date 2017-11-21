@@ -40,7 +40,7 @@ import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.JXLoginPane.JXLoginDialog;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 
 /**
@@ -88,7 +88,7 @@ public class LoginDialogRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(skin);
+			    SubstanceCortex.GlobalScope.setSkin(skin);
 				JDialog.setDefaultLookAndFeelDecorated(true);
 			}
 		});

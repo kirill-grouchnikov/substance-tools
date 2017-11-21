@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot.watermarks;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceConstants.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SepiaColorScheme;
 import org.pushingpixels.substance.api.watermark.SubstanceImageWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.ImageWatermarkRobot;
@@ -60,7 +60,7 @@ public class ImageWatermarkTerry extends ImageWatermarkRobot {
 		SubstanceImageWatermark watermark = new SubstanceImageWatermark(
 				"tools/docrobot/watermarks/LostLocke.jpg");
 		watermark.setKind(ImageWatermarkKind.APP_ANCHOR);
-		SubstanceLookAndFeel.setSkin(new RobotDefaultSkin(
+		SubstanceCortex.GlobalScope.setSkin(new RobotDefaultSkin(
 				new SepiaColorScheme(), watermark));
 	}
 }

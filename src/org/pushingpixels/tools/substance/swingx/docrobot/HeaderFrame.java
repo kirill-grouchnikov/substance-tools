@@ -28,8 +28,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXHeader;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 
@@ -42,7 +42,7 @@ public class HeaderFrame extends JFrame {
 		URL iconUrl = cl.getResource("docrobot/applications-internet.png");
 		Icon icon = new ImageIcon(iconUrl);
 		icon = new ImageIcon(SubstanceImageCreator.getColorSchemeImage(null,
-				icon, SubstanceLookAndFeel.getCurrentSkin(this.getRootPane())
+				icon, SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
 						.getActiveColorScheme(
 								DecorationAreaType.PRIMARY_TITLE_PANE), 0.0f));
 		String title = "LGPL license";

@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 
-import org.pushingpixels.substance.api.SubstancePluginRepository;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 /**
@@ -54,8 +54,7 @@ public class RobotMain {
      */
     public static void main(String[] args) throws Exception {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SubstancePluginRepository.getInstance()
-                .registerComponentPlugin(new SubstanceFlamingoPlugin());
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 
         String mainClassName = args[0];
         Class<?> robotClass = Class.forName(mainClassName);

@@ -67,8 +67,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.tools.substance.common.JImageComponent;
@@ -400,7 +401,7 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 				new JitterbugEditor().setVisible(true);
 			}
 		});

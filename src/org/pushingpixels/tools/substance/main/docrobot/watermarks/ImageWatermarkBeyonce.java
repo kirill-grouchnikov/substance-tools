@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot.watermarks;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceConstants.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.watermark.SubstanceImageWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.ImageWatermarkRobot;
@@ -60,7 +60,7 @@ public class ImageWatermarkBeyonce extends ImageWatermarkRobot {
 		SubstanceImageWatermark watermark = new SubstanceImageWatermark(
 				"tools/docrobot/watermarks/BeyonceKnowles.jpg");
 		watermark.setKind(ImageWatermarkKind.APP_ANCHOR);
-		SubstanceLookAndFeel.setSkin(new RobotDefaultSkin(
+		SubstanceCortex.GlobalScope.setSkin(new RobotDefaultSkin(
 				new SunsetColorScheme(), watermark));
 	}
 }

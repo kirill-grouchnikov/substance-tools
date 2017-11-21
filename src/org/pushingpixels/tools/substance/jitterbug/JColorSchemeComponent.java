@@ -44,7 +44,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeListener;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.tools.substance.jitterbug.StateChangeEvent.StateChangeType;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;

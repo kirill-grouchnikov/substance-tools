@@ -49,7 +49,7 @@ import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.flamingo.ribbon.NewCheckRibbon;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -99,7 +99,7 @@ public abstract class SkinRobot {
 		GuiActionRunner.execute(new GuiTask() {
 			@Override
 			protected void executeInEDT() throws Throwable {
-				SubstanceLookAndFeel.setSkin(skin);
+			    SubstanceCortex.GlobalScope.setSkin(skin);
 				JFrame.setDefaultLookAndFeelDecorated(true);
 			}
 		});

@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
@@ -44,7 +44,7 @@ public class LoginDialogRunner {
 	public static void main(String[] args) throws Exception {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		String subfolder = "logindialog";
-		Map<String, SkinInfo> skins = SubstanceLookAndFeel.getAllSkins();
+		Map<String, SkinInfo> skins = SubstanceCortex.GlobalScope.getAllSkins();
 		Robot robot = BasicRobot.robotWithNewAwtHierarchy();
 		for (Map.Entry<String, SkinInfo> skinEntry : skins.entrySet()) {
 			String key = skinEntry.getKey();
