@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.schemes;
 
-import org.pushingpixels.substance.colorschemepack.WildPineColorScheme;
+import org.pushingpixels.substance.extras.api.colorschemepack.WildPineColorScheme;
 import org.pushingpixels.tools.substance.main.docrobot.ColorSchemeRobot;
 
 /**

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.schemes;
 
-import org.pushingpixels.substance.colorschemepack.BelizeColorScheme;
+import org.pushingpixels.substance.extras.api.colorschemepack.BelizeColorScheme;
 import org.pushingpixels.tools.substance.main.docrobot.ColorSchemeRobot;
 
 /**

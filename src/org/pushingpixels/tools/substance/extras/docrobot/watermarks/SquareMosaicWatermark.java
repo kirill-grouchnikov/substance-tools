@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.watermarks;
 
-import org.pushingpixels.substance.watermarkpack.SubstanceMosaicWatermark;
+import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMosaicWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.WatermarkRobot;
 
 /**

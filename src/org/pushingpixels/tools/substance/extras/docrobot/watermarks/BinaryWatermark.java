@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.watermarks;
 
-import org.pushingpixels.substance.watermarkpack.SubstanceBinaryWatermark;
+import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceBinaryWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.WatermarkRobot;
 
 /**

@@ -57,13 +57,13 @@ import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
@@ -186,7 +186,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                 .setSelected(SubstanceCoreUtilities.useThemedDefaultIcon(null));
                         useThemedIcons.addActionListener(
                                 (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-                                    UIManager.put(SubstanceLookAndFeel.USE_THEMED_DEFAULT_ICONS,
+                                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
                                             useThemedIcons.isSelected() ? Boolean.TRUE : null);
                                     jcomp.repaint();
                                 }));
@@ -306,8 +306,8 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
         }
 
         public void actionPerformed(ActionEvent e) {
-            SwingUtilities.invokeLater(
-                    () -> UIManager.put(SubstanceLookAndFeel.FOCUS_KIND, newFocusKind));
+            SwingUtilities
+                    .invokeLater(() -> SubstanceCortex.GlobalScope.setFocusKind(newFocusKind));
         }
     }
 

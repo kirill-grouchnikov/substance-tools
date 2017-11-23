@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.schemes;
 
-import org.pushingpixels.substance.colorschemepack.SkyHighColorScheme;
+import org.pushingpixels.substance.extras.api.colorschemepack.SkyHighColorScheme;
 import org.pushingpixels.tools.substance.main.docrobot.ColorSchemeRobot;
 
 /**

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.substance.extras.docrobot.skins;
 
-import org.pushingpixels.substance.skinpack.FindingNemoSkin;
+import org.pushingpixels.substance.extras.api.skinpack.FindingNemoSkin;
 import org.pushingpixels.tools.substance.main.docrobot.SkinRobot;
 
 /**
