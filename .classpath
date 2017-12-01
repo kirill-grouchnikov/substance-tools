@@ -9,12 +9,13 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/substance-demo"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance-flamingo"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance-extras"/>
-	<classpathentry kind="lib" path="/substance-demo/lib/build/forms-1.2.0.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-assert-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-reflect-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-swing-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance-demo/lib/test/fest-util-1.1.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/flamingo-demo"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/strider"/>
+	<classpathentry kind="lib" path="/substance-demo/lib/build/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="/substance-demo/lib/build/jgoodies-common-1.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
