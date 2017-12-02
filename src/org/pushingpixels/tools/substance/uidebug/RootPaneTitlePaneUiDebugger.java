@@ -222,19 +222,13 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                     dialog.setLayout(new BorderLayout());
                                     dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
                                     JButton dismiss = new JButton("Dismiss");
-                                    dismiss.addActionListener(new ActionListener() {
-                                        public void actionPerformed(ActionEvent e) {
-                                            dialog.dispose();
-                                        }
-                                    });
+                                    dismiss.addActionListener((ActionEvent ae) -> dialog.dispose());
                                     JButton copyToClipboard = new JButton("Copy to clipboard");
-                                    copyToClipboard.addActionListener(new ActionListener() {
-                                        public void actionPerformed(ActionEvent e) {
-                                            textArea.selectAll();
-                                            TransferHandler.getCopyAction()
-                                                    .actionPerformed(new ActionEvent(textArea,
-                                                            ActionEvent.ACTION_PERFORMED, "Copy"));
-                                        }
+                                    copyToClipboard.addActionListener((ActionEvent ae) -> {
+                                        textArea.selectAll();
+                                        TransferHandler.getCopyAction()
+                                                .actionPerformed(new ActionEvent(textArea,
+                                                        ActionEvent.ACTION_PERFORMED, "Copy"));
                                     });
                                     JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                                     controls.add(copyToClipboard);

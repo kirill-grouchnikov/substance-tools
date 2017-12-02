@@ -39,7 +39,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -55,116 +54,101 @@ import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 import org.pushingpixels.tools.substance.common.JImageComponent;
 
 public class Electra extends JFrame {
-	public Electra() {
-		super("Electra");
-		this.setIconImage(SubstanceLogo
-				.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
-						this.getRootPane())
-						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL,
-								ComponentState.ENABLED)));
+    public Electra() {
+        super("Electra");
+        this.setIconImage(SubstanceLogo
+                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 
-		this.setSize(1200, 800);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(1200, 800);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.setLayout(new GridLayout(1, 2));
+        this.setLayout(new GridLayout(1, 2));
 
-		final JImageComponent jic = new JImageComponent(false);
-		jic
-				.setLegend(new String[] { "\tDrag and drop an image file from local disk" });
-		jic.setBorder(new Border() {
-			@Override
-			public void paintBorder(Component c, Graphics g, int x, int y,
-					int width, int height) {
-				Graphics2D g2d = (Graphics2D) g.create();
-				g2d.setColor(SubstanceCortex.ComponentScope.getCurrentSkin(c)
-						.getColorScheme(c, ColorSchemeAssociationKind.BORDER,
-								ComponentState.ENABLED).getMidColor());
-				g2d.drawLine(x + width - 2, y, x + width - 2, y + height - 1);
-				g2d.setComposite(AlphaComposite.SrcOver.derive(0.8f));
-				g2d.setColor(SubstanceCortex.ComponentScope.getCurrentSkin(c)
-						.getColorScheme(c, ColorSchemeAssociationKind.BORDER,
-								ComponentState.ENABLED).getExtraLightColor()
-						.brighter());
-				g2d.drawLine(x + width - 1, y, x + width - 1, y + height - 1);
-				g2d.dispose();
-			}
+        final JImageComponent jic = new JImageComponent(false);
+        jic.setLegend(new String[] { "\tDrag and drop an image file from local disk" });
+        jic.setBorder(new Border() {
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(
+                        SubstanceCortex.ComponentScope
+                                .getCurrentSkin(c).getColorScheme(c,
+                                        ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED)
+                                .getMidColor());
+                g2d.drawLine(x + width - 2, y, x + width - 2, y + height - 1);
+                g2d.setComposite(AlphaComposite.SrcOver.derive(0.8f));
+                g2d.setColor(
+                        SubstanceCortex.ComponentScope
+                                .getCurrentSkin(c).getColorScheme(c,
+                                        ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED)
+                                .getExtraLightColor().brighter());
+                g2d.drawLine(x + width - 1, y, x + width - 1, y + height - 1);
+                g2d.dispose();
+            }
 
-			@Override
-			public boolean isBorderOpaque() {
-				return false;
-			}
+            @Override
+            public boolean isBorderOpaque() {
+                return false;
+            }
 
-			@Override
-			public Insets getBorderInsets(Component c) {
-				return new Insets(0, 0, 0, 2);
-			}
-		});
-		this.add(jic);
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(0, 0, 0, 2);
+            }
+        });
+        this.add(jic);
 
-		final JElectrifiedImageComponent jeic = new JElectrifiedImageComponent(
-				jic);
+        final JElectrifiedImageComponent jeic = new JElectrifiedImageComponent(jic);
 
-		JPanel electrifiedContainer = new JPanel(new BorderLayout());
-		JScrollPane scroller = new JScrollPane(jeic,
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroller.setBorder(new EmptyBorder(0, 0, 0, 0));
-		electrifiedContainer.add(scroller, BorderLayout.CENTER);
+        JPanel electrifiedContainer = new JPanel(new BorderLayout());
+        JScrollPane scroller = new JScrollPane(jeic, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.setBorder(new EmptyBorder(0, 0, 0, 0));
+        electrifiedContainer.add(scroller, BorderLayout.CENTER);
 
-		JButton saveElectrified = new JButton("save");
-		saveElectrified.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						File originalFile = jic.getOriginalFile();
-						if (originalFile != null) {
-							jeic.save(originalFile);
-						}
-					}
-				});
-			}
-		});
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.TRAILING));
-		controls.add(saveElectrified);
-		electrifiedContainer.add(controls, BorderLayout.SOUTH);
+        JButton saveElectrified = new JButton("save");
+        saveElectrified.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            File originalFile = jic.getOriginalFile();
+            if (originalFile != null) {
+                jeic.save(originalFile);
+            }
+        }));
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        controls.add(saveElectrified);
+        electrifiedContainer.add(controls, BorderLayout.SOUTH);
 
-		this.add(electrifiedContainer);
+        this.add(electrifiedContainer);
 
-		jic.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					Point absPoint = jic.toOriginalImageCoords(e.getX(), e
-							.getY());
-					jeic.addZoomBubble(absPoint.x, absPoint.y, 80);
-				}
-			}
-		});
+        jic.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Point absPoint = jic.toOriginalImageCoords(e.getX(), e.getY());
+                    jeic.addZoomBubble(absPoint.x, absPoint.y, 80);
+                }
+            }
+        });
 
-	}
+    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				JDialog.setDefaultLookAndFeelDecorated(true);
-				SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 
-				new Electra().setVisible(true);
-			}
-		});
-	}
+            new Electra().setVisible(true);
+        });
+    }
 
 }

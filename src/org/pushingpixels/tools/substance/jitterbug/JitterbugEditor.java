@@ -49,12 +49,10 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.InputStream;
 
@@ -190,39 +188,25 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
         final JButton saveButton = new JButton("save");
         saveButton.setIcon(new ImageIcon(JitterbugEditor.class.getClassLoader()
                 .getResource("tools/jitterbug/page_save.png")));
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                colorSchemeList.save();
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        saveButton.setEnabled(false);
-                    }
-                });
-            }
+        saveButton.addActionListener((ActionEvent e) -> {
+            colorSchemeList.save();
+            SwingUtilities.invokeLater(() -> saveButton.setEnabled(false));
         });
         saveButton.setEnabled(false);
         controlsPanel.add(saveButton);
 
         JButton saveAsButton = new JButton("save as...");
-        saveAsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                colorSchemeList.saveAs();
-                updateMainWindowTitle(colorSchemeList.isModified());
-            }
+        saveAsButton.addActionListener((ActionEvent e) -> {
+            colorSchemeList.saveAs();
+            updateMainWindowTitle(colorSchemeList.isModified());
         });
         controlsPanel.add(saveAsButton);
 
         JButton newButton = new JButton("new");
-        newButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                colorSchemeList.setColorSchemeList(null);
-                colorSchemeComp.clearContent();
-                updateMainWindowTitle(colorSchemeList.isModified());
-            }
+        newButton.addActionListener((ActionEvent e) -> {
+            colorSchemeList.setColorSchemeList(null);
+            colorSchemeComp.clearContent();
+            updateMainWindowTitle(colorSchemeList.isModified());
         });
 
         controlsPanel.add(Box.createHorizontalStrut(20));
@@ -237,16 +221,12 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
         // wire color scheme selection in the list to the
         // color scheme component
         this.colorSchemeList.addPropertyChangeListener("selectedColorScheme",
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent evt) {
-                        SubstanceColorScheme newSelection = (SubstanceColorScheme) evt
-                                .getNewValue();
-                        if (newSelection != null)
-                            colorSchemeComp.setContent(newSelection);
-                        else
-                            colorSchemeComp.clearContent();
-                    }
+                (PropertyChangeEvent evt) -> {
+                    SubstanceColorScheme newSelection = (SubstanceColorScheme) evt.getNewValue();
+                    if (newSelection != null)
+                        colorSchemeComp.setContent(newSelection);
+                    else
+                        colorSchemeComp.clearContent();
                 });
         // track color modifications of the currently selected
         // color scheme
@@ -313,14 +293,11 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
                                 "\t* Drag and drop an image file from local disk or another app",
                                 "\t* Drag and drop a URL pointing to an image" });
 
-        imageComp.addPropertyChangeListener("selectedColor", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                Color selectedImageColor = (Color) evt.getNewValue();
-                JColorComponent selectedColorComp = colorSchemeComp.getSelectedColorComponent();
-                if (selectedColorComp != null) {
-                    selectedColorComp.setColor(selectedImageColor, true);
-                }
+        imageComp.addPropertyChangeListener("selectedColor", (PropertyChangeEvent evt) -> {
+            Color selectedImageColor = (Color) evt.getNewValue();
+            JColorComponent selectedColorComp = colorSchemeComp.getSelectedColorComponent();
+            if (selectedColorComp != null) {
+                selectedColorComp.setColor(selectedImageColor, true);
             }
         });
 
@@ -377,11 +354,9 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
     public static void main(String[] args) {
         JDialog.setDefaultLookAndFeelDecorated(true);
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
-                new JitterbugEditor().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            new JitterbugEditor().setVisible(true);
         });
     }
 

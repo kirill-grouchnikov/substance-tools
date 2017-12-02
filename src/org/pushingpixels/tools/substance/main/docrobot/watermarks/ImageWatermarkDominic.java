@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot.watermarks;
 
-import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
 import org.pushingpixels.substance.api.colorscheme.CharcoalColorScheme;
 import org.pushingpixels.substance.api.watermark.SubstanceImageWatermark;
 import org.pushingpixels.tools.substance.main.docrobot.ImageWatermarkRobot;

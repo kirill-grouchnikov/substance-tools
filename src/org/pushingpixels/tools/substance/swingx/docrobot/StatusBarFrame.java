@@ -20,7 +20,6 @@ package org.pushingpixels.tools.substance.swingx.docrobot;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -47,9 +46,9 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_left
 import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_right;
 import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 public class StatusBarFrame extends JFrame {
@@ -134,11 +133,7 @@ public class StatusBarFrame extends JFrame {
 
         toolBar.add(Box.createGlue());
         JButton buttonExit = new JButton(process_stop.of(size, size));
-        buttonExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        buttonExit.addActionListener((ActionEvent e) -> System.exit(0));
         toolBar.add(buttonExit);
 
         return toolBar;

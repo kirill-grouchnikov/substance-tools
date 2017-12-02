@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.tools.substance.main.docrobot;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -44,12 +43,12 @@ import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Pause;
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.tools.substance.main.docrobot.svg.Image_x_generic;
+import org.pushingpixels.tools.substance.main.docrobot.svg.image_x_generic;
 
 /**
  * The base class for taking a single screenshot for Substance documentation.
@@ -108,9 +107,8 @@ public abstract class BaseRobot {
             @Override
             protected void executeInEDT() throws Throwable {
                 sf = new SampleFrame();
-                Image_x_generic original = new Image_x_generic();
-                original.setDimension(new Dimension(16, 16));
-                sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null, original,
+                sf.setIconImage(SubstanceImageCreator.getColorSchemeImage(null,
+                        image_x_generic.of(16, 16),
                         SubstanceCortex.ComponentScope.getCurrentSkin(sf.getRootPane())
                                 .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
                         0.0f));
