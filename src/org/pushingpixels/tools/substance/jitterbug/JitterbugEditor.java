@@ -34,11 +34,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.RenderingHints;
-import java.awt.Transparency;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
@@ -51,13 +46,11 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.InputStream;
 
 import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -66,6 +59,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
@@ -80,34 +74,6 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
     private JColorSchemeList colorSchemeList;
     private JColorSchemeComponent colorSchemeComp;
     private JHsvGraph hsvGraph;
-
-    private class JitterbugLogo implements Icon {
-        @Override
-        public int getIconHeight() {
-            return 16;
-        }
-
-        @Override
-        public int getIconWidth() {
-            return 16;
-        }
-
-        @Override
-        public void paintIcon(Component c, Graphics g, int x, int y) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.translate(x, y);
-
-            double coef1 = (double) getIconWidth() / (double) substance.getOrigWidth();
-            double coef2 = (double) getIconHeight() / (double) substance.getOrigHeight();
-            double coef = Math.min(coef1, coef2);
-            g2d.scale(coef, coef);
-            g2d.translate(substance.getOrigX(), substance.getOrigY());
-            substance.paint(g2d);
-            g2d.dispose();
-        }
-    }
 
     protected class JitterbugDropHandler extends DropTargetAdapter {
         @Override
@@ -129,19 +95,6 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
                     exc.printStackTrace();
                 }
             }
-            // if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-            // try {
-            // dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-            // String content = (String) t
-            // .getTransferData(DataFlavor.stringFlavor);
-            // colorSchemeComp.setContent(new ByteArrayInputStream(content
-            // .getBytes()));
-            // dtde.dropComplete(true);
-            // return;
-            // } catch (Exception exc) {
-            // exc.printStackTrace();
-            // }
-            // }
         }
 
         @Override
@@ -160,11 +113,8 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
     public JitterbugEditor() {
         super();
 
-        BufferedImage iconImage = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice().getDefaultConfiguration()
-                .createCompatibleImage(16, 16, Transparency.TRANSLUCENT);
-        new JitterbugLogo().paintIcon(this, iconImage.getGraphics(), 0, 0);
-        this.setIconImage(iconImage);
+        this.setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.GlobalScope.getCurrentSkin()
+                .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
 
         FormLayout leftPanelLayout = new FormLayout("fill:pref",
                 "fill:pref, fill:pref, fill:pref:grow, fill:pref");
@@ -187,7 +137,7 @@ public class JitterbugEditor extends JFrame implements ClipboardOwner {
 
         final JButton saveButton = new JButton("save");
         saveButton.setIcon(new ImageIcon(JitterbugEditor.class.getClassLoader()
-                .getResource("tools/jitterbug/page_save.png")));
+                .getResource("org/pushingpixels/tools/substance/jitterbug/page_save.png")));
         saveButton.addActionListener((ActionEvent e) -> {
             colorSchemeList.save();
             SwingUtilities.invokeLater(() -> saveButton.setEnabled(false));
