@@ -2,3 +2,4 @@ classes/*
 .*
 .*
 !.gitignore
+/bin/
