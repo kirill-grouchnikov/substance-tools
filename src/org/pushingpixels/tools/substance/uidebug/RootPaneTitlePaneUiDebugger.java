@@ -83,7 +83,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
             if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel))
                 return;
 
-            titlePane = SubstanceCortex.WindowScope
+            titlePane = SubstanceCoreUtilities
                     .getTitlePaneComponent(SwingUtilities.getWindowAncestor(jcomp));
             if (titlePane != null) {
                 substanceDebugUiListener = new MouseAdapter() {
