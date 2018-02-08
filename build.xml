@@ -60,8 +60,8 @@
 	
     <property name="substance.version" value="8.0.00-dev" />
     <property name="substance.versionKey" value="8.0.0dev Wyoming" />
-    <property name="flamingo.version" value="6.0.00-dev" />
-    <property name="flamingo.versionKey" value="6.0.00dev Liadan" />
+    <property name="flamingo.version" value="5.3.00-dev" />
+    <property name="flamingo.versionKey" value="5.3.00dev Liadan" />
 
 	<path id="substance-tools.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
