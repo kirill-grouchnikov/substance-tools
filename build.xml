@@ -58,10 +58,10 @@
     <property name="substance.extras.basedir" value="${module.substance-tools.basedir}/../substance-extras" />
     <property name="substance.demo.basedir" value="${module.substance-tools.basedir}/../substance-demo" />
 	
-    <property name="substance.version" value="8.0.00-dev" />
-    <property name="substance.versionKey" value="8.0.0dev Wyoming" />
-    <property name="flamingo.version" value="5.3.00-dev" />
-    <property name="flamingo.versionKey" value="5.3.00dev Liadan" />
+    <property name="substance.version" value="8.0.00-rc" />
+    <property name="substance.versionKey" value="8.0.0rc Wyoming" />
+    <property name="flamingo.version" value="5.3.00-rc" />
+    <property name="flamingo.versionKey" value="5.3.00rc Liadan" />
 
 	<path id="substance-tools.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
